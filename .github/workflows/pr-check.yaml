@@ -6,11 +6,6 @@ on:
       [ "main"] 
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ./.github/workflows/setup.yaml
-        name: setup environment  
-      - uses: ./.github/workflows/python-app.yaml
-        name: build-and-test
+  lint-test-typing:
+    uses: ./github/workflows/python-app.yaml
     
