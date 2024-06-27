@@ -1,0 +1,31 @@
+name: Python application
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Rye
+      run: |
+        curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash
+    - name: Install dependencies
+      run: |
+        rye sync
+    - name: Lint with ruff
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        ruff check . --output-format github
+    - name: Test with pytest
+      run: |
+        pytest -vv tests
