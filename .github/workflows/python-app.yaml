@@ -26,7 +26,9 @@ jobs:
     - name: Lint with ruff
       run: |
         # stop the build if there are Python syntax errors or undefined names
-        ruff check . --output-format github
+        source "$HOME/.rye/env"
+        rye run ruff check . --output-format github
     - name: Test with pytest
       run: |
-        pytest -vv tests
+        source "$HOME/.rye/env"
+        rye run pytest -vv tests
