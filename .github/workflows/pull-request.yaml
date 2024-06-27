@@ -1,12 +1,13 @@
+name: "PR Checks"
+
 on:
   pull_request:
-    branches: [ "main"] 
+    branches: 
+      [ "main"] 
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - name: Set up Rye
         run: |
