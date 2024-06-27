@@ -7,9 +7,10 @@ on:
 
 jobs:
   build:
-    setup-env:
-      uses: ./.github/workflows/setup.yaml
-    build-test:
-      needs: setup-env
-      uses: ./.github/workflows/python-app.yaml
+    steps:
+      setup-env:
+        uses: ./.github/workflows/setup.yaml
+      build-test:
+        needs: setup-env
+        uses: ./.github/workflows/python-app.yaml
     
