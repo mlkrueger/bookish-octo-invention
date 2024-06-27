@@ -27,7 +27,7 @@ jobs:
       run: |
         # stop the build if there are Python syntax errors or undefined names
         source "$HOME/.rye/env"
-        rye run ruff check . --output-format github
+        rye run ruff check .
     - name: Test with pytest
       run: |
         source "$HOME/.rye/env"

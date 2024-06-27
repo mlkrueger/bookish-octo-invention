@@ -1,6 +1,5 @@
 import pytest
 from bookish_octo_invention import hello
-import asyncio
 
 @pytest.mark.parametrize(
     'name', ['Matthew','Octo-Cat','World','', None]
