@@ -18,13 +18,14 @@ jobs:
     - name: Set up Rye
       run: |
         curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash 
-    - name: Install dependencies
+    - name: Rye Sync
       run: |
+        # Install package with rye sync
         source "$HOME/.rye/env"
         rye sync
     - name: Lint with ruff
       run: |
-        Lint with ruff
+        # Lint with ruff
         source "$HOME/.rye/env"
         rye run ruff check .
     - name: Test with pytest
