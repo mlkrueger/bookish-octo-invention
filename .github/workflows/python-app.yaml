@@ -18,9 +18,10 @@ jobs:
     - uses: actions/checkout@v4
     - name: Set up Rye
       run: |
-        curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash && source "$HOME/.rye/env"
+        curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash 
     - name: Install dependencies
       run: |
+        source "$HOME/.rye/env"
         rye sync
     - name: Lint with ruff
       run: |
