@@ -19,6 +19,6 @@ jobs:
         # Install package with rye sync
         source "$HOME/.rye/env"
         rye sync
-    build-test:
-      uses: ./.github/workflows/python-app.yaml
+      build-test:
+        uses: ./.github/workflows/python-app.yaml
     
