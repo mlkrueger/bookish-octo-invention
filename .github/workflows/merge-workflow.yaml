@@ -1,7 +1,9 @@
 on:
-  merge:
+  pull_request:
+    types:
+      - closed
     branches:
-      - main
+      ["main"]
   
   jobs:
     build-test:
