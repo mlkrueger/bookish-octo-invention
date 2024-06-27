@@ -10,15 +10,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Set up Rye
-      run: |
-        curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash 
-    - name: Rye Sync
-      run: |
-        # Install package with rye sync
-        source "$HOME/.rye/env"
-        rye sync
+      setup-env:
+        uses: ./.github/workflows/setup.yaml
       build-test:
+        needs: setup-env
         uses: ./.github/workflows/python-app.yaml
     
