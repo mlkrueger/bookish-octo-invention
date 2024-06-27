@@ -9,6 +9,10 @@ env:
 
 on:
   workflow_call:
+    inputs:
+      repository:
+        required: true
+        type: string
 
 
 jobs:
@@ -23,6 +27,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - id: vars
+        run: |
+          echo "IMAGE_ID=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ inputs.repository }}" >> $GITHUB_ENV
+          echo "IMAGE_TAG=test-$(date +'%Y%m%d')-${{ github.run_number }}" >> $GITHUB_ENV
+          cat $GITHUB_ENV >> $GITHUB_OUTPUT
 
       - uses: docker/login-action@v2
         with:
