@@ -7,12 +7,9 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
-      setup-env:
-        uses: ./.github/workflows/setup.yaml
-      build-test:
-        needs: setup-env
-        uses: ./.github/workflows/python-app.yaml
+    setup-env:
+      uses: ./.github/workflows/setup.yaml
+    build-test:
+      needs: setup-env
+      uses: ./.github/workflows/python-app.yaml
     
