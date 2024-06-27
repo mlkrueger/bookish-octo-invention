@@ -1,10 +1,9 @@
-name: Python application
+name: "Python: Lint and Test"
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_call:
 
 permissions:
   contents: read
@@ -19,13 +18,14 @@ jobs:
     - name: Set up Rye
       run: |
         curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash 
-    - name: Install dependencies
+    - name: Rye Sync
       run: |
+        # Install package with rye sync
         source "$HOME/.rye/env"
         rye sync
     - name: Lint with ruff
       run: |
-        # stop the build if there are Python syntax errors or undefined names
+        # Lint with ruff
         source "$HOME/.rye/env"
         rye run ruff check .
     - name: Test with pytest

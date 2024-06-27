@@ -1,0 +1,12 @@
+on:
+  merge:
+    branches:
+      - main
+  
+  jobs:
+    build-test:
+      uses: ./.github/workflows/python-app.yaml
+    # docker-build:
+    #   uses: ./.github/workflows/docker-image.yaml
+    docker-build-and-push:
+      uses: ./.github/workflows/docker-push.yaml

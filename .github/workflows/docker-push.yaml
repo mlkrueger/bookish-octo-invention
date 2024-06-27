@@ -1,0 +1,48 @@
+name: "Publish Docker Image v2"
+
+# This file was purposely created separately of the production workflows file in order to
+# verify the new workflow's behavior without impacting regular work.
+
+env:
+  REGISTRY: ghcr.io
+  NAMESPACE: mlkrueger
+
+on:
+  workflow_call:
+
+
+jobs:
+  publish_docker_image:
+    name: Docker Build & Push
+    runs-on: ubuntu-latest
+
+    outputs:
+      image_id: ${{ steps.vars.outputs.IMAGE_ID}}
+      image_tag: ${{ steps.vars.outputs.IMAGE_TAG }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+
+      - uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/setup-buildx-action@v2
+
+      - name: Get the SHA of the checked-out commit. Needed for events triggered from pull request comments.
+        id: current-sha
+        run: echo CURRENT_SHA=$(git rev-parse HEAD) >> $GITHUB_OUTPUT
+
+      - uses: docker/build-push-action@v3
+        with:
+          # Override default Git Context from the event that triggered this workflow
+          # with the current checked out version and path from actions/checkout.
+          context: .
+          push: true
+          file: Dockerfile
+          tags: |
+            ${{ env.IMAGE_ID }}:${{ env.IMAGE_TAG }}
+            ${{ env.IMAGE_ID }}:${{ steps.current-sha.outputs.CURRENT_SHA}}
