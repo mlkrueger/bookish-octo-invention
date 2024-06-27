@@ -8,6 +8,7 @@ authors = [
 dependencies = [
     "typer>=0.12.3",
     "ruff>=0.5.0",
+    "mypy>=1.10.1",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
@@ -28,3 +29,14 @@ allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/bookish_octo_invention"]
+
+[tool.mypy]
+exclude = [
+    ".*__pycache__.*",
+    "./venv/*",
+    ".*\\.pyi$"
+]
+files = [
+    "**/bookish_octo_invention/*.py",
+    "tests/*.py"
+]

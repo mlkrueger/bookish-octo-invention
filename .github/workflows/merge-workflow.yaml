@@ -1,9 +1,11 @@
 on:
-  merge:
+  pull_request:
+    types:
+      - closed
     branches:
-      - main
+      ["main"]
   
-  jobs:
+jobs:
     build-test:
       uses: ./.github/workflows/python-app.yaml
     # docker-build:

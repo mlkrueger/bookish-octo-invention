@@ -1,8 +1,6 @@
 name: "Python: Lint and Test"
 
 on:
-  pull_request:
-    branches: [ "main" ]
   workflow_call:
 
 permissions:
@@ -32,3 +30,7 @@ jobs:
       run: |
         source "$HOME/.rye/env"
         rye run pytest -vv tests
+    - name: MyPy Check
+      run: |
+        source "$HOME/.rye/env"
+        rye run mypy
