@@ -11,6 +11,5 @@ jobs:
       - uses: ./.github/workflows/setup.yaml
         name: setup environment  
       - uses: ./.github/workflows/python-app.yaml
-        needs: setup-env
         name: build-and-test
     
