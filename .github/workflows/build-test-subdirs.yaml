@@ -15,16 +15,16 @@ on:
 jobs:
 # List the directories under the parents
   find-subdirs:
-    - name: Find Subdirectories
-      outputs:
-        folders: ${{ steps.dirs.outputs.folders }}
-      runs-on: ubuntu-latest
-      steps:
-      - uses: actions/checkout@v4
-      - id: dirs
-        uses: ./.github/workflows/list-dirs.yaml
-        with: 
-          parent: ${{ inputs.parent }}
+    name: Find Subdirectories
+    outputs:
+      folders: ${{ steps.dirs.outputs.folders }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - id: dirs
+      uses: ./.github/workflows/list-dirs.yaml
+      with: 
+        parent: ${{ inputs.parent }}
   # test, lint, and type check every package/app under parent
   test-lint-type:
     name: "Python: Test, Lint, and Type Check"
