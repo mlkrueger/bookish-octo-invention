@@ -1,0 +1,35 @@
+name: "Python: Type Check"
+
+on:
+  workflow_call:
+    inputs:
+      directory:
+        required: true
+        type: string 
+
+
+permissions:
+  contents: read
+
+jobs:
+  type-check:
+    defaults:
+      run:
+        working-directory: ${{ inputs.directory }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Rye
+      run: |
+        curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash 
+    - name: Rye Sync
+      run: |
+        # Install package with rye sync
+        source "$HOME/.rye/env"
+        rye sync
+    - name: MyPy Check
+      run: |
+        source "$HOME/.rye/env"
+        rye run mypy

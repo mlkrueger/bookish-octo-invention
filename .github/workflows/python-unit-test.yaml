@@ -1,13 +1,21 @@
-name: "Python: Lint and Test"
+name: "Python: Pytest"
 
 on:
   workflow_call:
+    inputs:
+      directory:
+        required: true
+        type: string 
+
 
 permissions:
   contents: read
 
 jobs:
-  build:
+  test:
+    defaults:
+      run:
+        working-directory: ${{ inputs.directory }}
 
     runs-on: ubuntu-latest
 
@@ -21,16 +29,9 @@ jobs:
         # Install package with rye sync
         source "$HOME/.rye/env"
         rye sync
-    - name: Lint with ruff
-      run: |
-        # Lint with ruff
-        source "$HOME/.rye/env"
-        rye run ruff check .
+   
     - name: Test with pytest
       run: |
         source "$HOME/.rye/env"
         rye run pytest -vv tests
-    - name: MyPy Check
-      run: |
-        source "$HOME/.rye/env"
-        rye run mypy
+    

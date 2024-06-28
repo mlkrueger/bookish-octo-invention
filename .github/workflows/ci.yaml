@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      ["main"]
+  
+jobs:
+  test-lint-check-build:
+    strategy:
+      matrix:
+        parent:
+          - apps
+    steps:
+      - uses: ./.github/workflows/build-test-subdirs.yaml
+        with:
+          parent: ${{ matrix.parent }}
+          build: github.event.pull_request.closed == true
+    
