@@ -1,0 +1,64 @@
+
+name: Test, Lint, Type Check
+on:
+  workflow_call:
+    inputs:
+      parent:
+        required: true
+        type: string
+    inputs:
+      build:
+        required: true
+        type: bool
+
+
+# Given a set of parents
+jobs:
+# List the directories under the parents
+  find-subdirs:
+    - name: Find Subdirectories
+      outputs:
+        folders: ${{ steps.dirs.outputs.folders }}
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v4
+      - id: dirs
+        uses: ./.github/workflows/list-dirs.yaml
+        with: 
+          parent: ${{ inputs.parent }}
+  # test, lint, and type check every package/app under parent
+  test-lint-type:
+    name: "Python: Test, Lint, and Type Check"
+    needs: [find-subdirs]
+    strategy:
+      matrix:
+        subdir: ${{ fromJson(needs.find-subdirs.outputs.folders) }}
+    steps:
+      - name: Lint
+        uses: ./.github/workflows/python-linting.yaml
+        with:
+          directory: ${{inputs.parent}}/${{ matrix.subdir }}
+      - name: Test
+        uses: ./.github/workflows/python-unit-test.yaml
+        with:
+          directory: ${{inputs.parent}}/${{ matrix.subdir }}
+      - name: Type Check
+        uses: ./.github/workflows/python-type-check.yaml
+        with:
+          directory: ${{inputs.parent}}/${{ matrix.subdir }}
+  build:
+    needs: [Lint, Tets, Type Check]
+    if: ${{ inputs.build }} == true
+    needs: [find-subdirs]
+    strategy:
+      matrix:
+        subdir: ${{ fromJson(needs.find-subdirs.outputs.folders) }}
+    defaults:
+      run:
+        working-directory: ${{inputs.parent}}/${{ matrix.subdir }}
+    steps:
+      - name: Build and Push
+        uses: ./.github/workflows/docker-push.yaml
+        with:
+          directory: ${{inputs.parent}}/${{ matrix.subdir }}
+

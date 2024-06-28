@@ -6,6 +6,11 @@ on:
       ["main"]
   
 jobs:
+    subdirs:
+      - name: Test, Lint, and Type Check Pacakges
+        with: 
+          parent: "apps"
+        
     unit-test:
       uses: ./.github/workflows/python-unit-test.yaml
     linting:
