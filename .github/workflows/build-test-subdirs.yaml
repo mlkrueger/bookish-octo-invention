@@ -1,12 +1,11 @@
 
 name: Test, Lint, Type Check
 on:
-  workflow-call:
+  workflow_call:
     inputs:
       parent:
         required: true
         type: string
-    inputs:
       build:
         required: true
         type: bool
