@@ -2,11 +2,17 @@ name: CI
 
 on:
   pull_request:
-    branches:
-      ["main"]
+    types:
+      - opened
+      - closed
+      - reopened
+      - edited
+      - auto_merge_enabled
+      - auto_merge_disabled
   
 jobs:
   test-lint-check-build:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         parent:
