@@ -1,7 +1,7 @@
 
 name: Test, Lint, Type Check
 on:
-  workflow_call:
+  workflow-call:
     inputs:
       parent:
         required: true
