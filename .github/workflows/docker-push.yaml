@@ -15,7 +15,7 @@ on:
         type: string
 
 permissions:
-  - "write:packages"
+  packages: write
 
 jobs:
   publish_docker_image:
