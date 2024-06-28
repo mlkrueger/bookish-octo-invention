@@ -2,13 +2,7 @@ name: CI
 
 on:
   pull_request:
-    types:
-      - opened
-      - closed
-      - reopened
-      - edited
-      - auto_merge_enabled
-      - auto_merge_disabled
+    branches: [main]
   
 jobs:
   test-lint-check-build:
