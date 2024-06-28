@@ -6,12 +6,11 @@ on:
       ["main"]
   
 jobs:
-  parents:
+  test-lint-check-build:
     strategy:
       matrix:
         parent:
           - apps
-  test-lint-check-build:
     steps:
       - uses: ./.github/workflows/build-test-subdirs.yaml
         with:
