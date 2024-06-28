@@ -1,5 +1,4 @@
-name: "Python: Lint and Test"
-
+name: "Python: Linting"
 on:
   pull_request:
     branches: ["main"]
