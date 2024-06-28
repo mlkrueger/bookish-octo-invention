@@ -46,9 +46,8 @@ jobs:
         with:
           directory: ${{inputs.parent}}/${{ matrix.subdir }}
   build:
-    needs: [Lint, Tets, Type Check]
     if: ${{ inputs.build }} == true
-    needs: [find-subdirs]
+    needs: [find-subdirs, test-link-type]
     strategy:
       matrix:
         subdir: ${{ fromJson(needs.find-subdirs.outputs.folders) }}
