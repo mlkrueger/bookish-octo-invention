@@ -33,6 +33,7 @@ jobs:
       matrix:
         subdir: ${{ fromJson(needs.find-subdirs.outputs.folders) }}
     steps:
+      - uses: actions/checkout@v4
       - name: Lint
         uses: ./.github/workflows/python-linting.yaml
         with:
