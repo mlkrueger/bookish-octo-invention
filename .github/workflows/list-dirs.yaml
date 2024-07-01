@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - run: apt-get update && apt-get install tree jq -y
+    - run: sudo apt update && sudo apt install tree jq -y
       shell: bash
     - id: set-folders
       shell: bash
