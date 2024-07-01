@@ -14,9 +14,7 @@ jobs:
           - apps
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          echo $(ls ./.github/workflows)
-      - uses: .github/workflows/build-test-subdirs.yaml
+      - uses: ./.github/workflows/build-test-subdirs.yaml
         with:
           parent: ${{ matrix.parent }}
           build: github.event.pull_request.closed == true
