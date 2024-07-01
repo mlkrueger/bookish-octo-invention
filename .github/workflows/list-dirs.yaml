@@ -24,5 +24,5 @@ jobs:
         cd ${{ inputs.parent }}
         folders=$(tree -J -d -L 1 | jq -c '.[0].contents | map(.name)')
         echo $folders
-        echo "folders=$folders" >> $GITHUB_OUTPUT
+        echo "folders=$folders" >> "$GITHUB_OUTPUT"
       
