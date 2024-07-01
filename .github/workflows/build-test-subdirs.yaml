@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-        echo "${{matrix.subdir}}"
+        echo "from test-lint-type ${{matrix.subdir}}"
       - name: Lint
         uses: ./.github/workflows/python-linting.yaml
         with:
@@ -60,7 +60,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-        echo '${{inputs.parent}}/${{matrix.subdir}}'
+        echo 'from build ${{inputs.parent}}/${{matrix.subdir}}'
       - name: Build and Push
         uses: ./.github/workflows/docker-push.yaml
         with:
