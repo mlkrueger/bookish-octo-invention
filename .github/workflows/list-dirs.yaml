@@ -8,7 +8,7 @@ on:
     outputs:
       folders: # id of output
         description: 'A JSON formatted list of folders'
-        value: ${{ build.steps.set-folders.outputs.folders }}
+        value: ${{ set-folders.outputs.folders }}
 
 permissions:
   contents: read
