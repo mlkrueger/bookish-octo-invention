@@ -40,7 +40,7 @@ jobs:
           echo "IMAGE_ID=${{ env.REGISTRY }}/${{ env.NAMESPACE }}/${{ inputs.application}}" >> $GITHUB_ENV
           cat $GITHUB_ENV >> $GITHUB_OUTPUT
 
-      - uses: docker/login-action@v2
+      - uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -54,7 +54,7 @@ jobs:
 
       - run: |
           echo ${{ inputs.directory }}
-      - uses: docker/build-push-action@v3
+      - uses: docker/build-push-action@v6
         with:
           # Override default Git Context from the event that triggered this workflow
           # with the current checked out version and path from actions/checkout.
