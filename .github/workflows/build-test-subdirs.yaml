@@ -1,4 +1,3 @@
-
 name: Test, Lint, Type Check
 on:
   workflow_call:
