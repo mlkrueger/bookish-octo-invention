@@ -34,6 +34,8 @@ jobs:
         subdir: ${{ fromJson(needs.find-subdirs.outputs.folders) }}
     steps:
       - uses: actions/checkout@v4
+      - run: |
+        echo "${{matrix.subdir}}"
       - name: Lint
         uses: ./.github/workflows/python-linting.yaml
         with:
@@ -48,7 +50,7 @@ jobs:
           directory: ${{inputs.parent}}/${{ matrix.subdir }}
   build:
     if: ${{ inputs.build }} == true
-    needs: [find-subdirs, test-link-type]
+    needs: [find-subdirs, test-lint-type]
     strategy:
       matrix:
         subdir: ${{ fromJson(needs.find-subdirs.outputs.folders) }}
