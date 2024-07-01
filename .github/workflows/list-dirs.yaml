@@ -5,15 +5,13 @@ on:
       parent:
         required: true
         type: string
-    outputs:
-      folders: # id of output
-        description: 'A JSON formatted list of folders'
-        value: ${{ set-folders.outputs.folders }}
 
 permissions:
   contents: read
 jobs:
   build:
+    outputs:
+      folders: ${{ steps.set-folders.outputs.folders }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
