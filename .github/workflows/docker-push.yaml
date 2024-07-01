@@ -46,7 +46,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: docker/setup-buildx-action@v2
+      - uses: docker/setup-buildx-action@v3
 
       - name: Get the SHA of the checked-out commit. Needed for events triggered from pull request comments.
         id: current-sha
@@ -60,7 +60,6 @@ jobs:
           # with the current checked out version and path from actions/checkout.
           context: ${{ inputs.directory }}
           push: true
-          file: Dockerfile
           tags: |
             ${{ env.IMAGE_ID }}:${{ inputs.env }}
             ${{ env.IMAGE_ID }}:${{ steps.current-sha.outputs.CURRENT_SHA}}
