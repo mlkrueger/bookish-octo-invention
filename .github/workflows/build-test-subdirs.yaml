@@ -54,5 +54,5 @@ jobs:
         subdir: ${{ fromJson(needs.find-subdirs.outputs.folders) }}
     uses: ./.github/workflows/docker-push.yaml
     with:
-      directory: ${{inputs.parent}}/${{ matrix.subdir }}
+      directory: ./${{inputs.parent}}/${{ matrix.subdir }}
 
