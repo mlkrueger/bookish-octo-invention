@@ -55,4 +55,5 @@ jobs:
     uses: ./.github/workflows/docker-push.yaml
     with:
       directory: ./${{inputs.parent}}/${{ matrix.subdir }}
+      application: ${{ matrix.subdir }}
 
