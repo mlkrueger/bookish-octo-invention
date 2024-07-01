@@ -7,7 +7,7 @@ on:
         type: string
     outputs:
       folders: 
-        value: ${{ steps.set-folders.outputs.folders }}
+        value: ${{ jobs.build.outputs.folders }}
 
 permissions:
   contents: read
