@@ -15,57 +15,44 @@ jobs:
 # List the directories under the parents
   find-subdirs:
     name: Find Subdirectories
-    outputs:
-      folders: ${{ steps.dirs.outputs.folders }}
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - id: dirs
-      uses: ./.github/workflows/list-dirs.yaml
-      with: 
-        parent: ${{ inputs.parent }}
-    - run: |
-        echo ${{steps.id.output.folders}}
+    uses: ./.github/workflows/list-dirs.yaml
+    with: 
+      parent: ${{ inputs.parent }}
   # test, lint, and type check every package/app under parent
-  test-lint-type:
-    name: "Python: Test, Lint, and Type Check"
+  lint:
+    name: "Python: Lint"
     needs: [find-subdirs]
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         subdir: ${{ fromJson(needs.find-subdirs.outputs.folders) }}
-    steps:
-      - uses: actions/checkout@v4
-      - run: |
-          echo "from test-lint-type ${{matrix.subdir}}"
-      - name: Lint
-        uses: ./.github/workflows/python-linting.yaml
-        with:
-          directory: ${{inputs.parent}}/${{ matrix.subdir }}
-      - name: Test
-        uses: ./.github/workflows/python-unit-test.yaml
-        with:
-          directory: ${{inputs.parent}}/${{ matrix.subdir }}
-      - name: Type Check
-        uses: ./.github/workflows/python-type-check.yaml
-        with:
-          directory: ${{inputs.parent}}/${{ matrix.subdir }}
+    uses: ./.github/workflows/python-linting.yaml
+    with:
+      directory: ${{inputs.parent}}/${{ matrix.subdir }}
+  test:
+    name: "Python: Test"
+    needs: [find-subdirs]
+    strategy:
+      matrix:
+        subdir: ${{ fromJson(needs.find-subdirs.outputs.folders) }}
+    uses: ./.github/workflows/python-unit-test.yaml
+    with:
+      directory: ${{inputs.parent}}/${{ matrix.subdir }}
+  type:
+    name: "Python: Type Check"
+    needs: [find-subdirs]
+    strategy:
+      matrix:
+        subdir: ${{ fromJson(needs.find-subdirs.outputs.folders) }}
+    uses: ./.github/workflows/python-type-check.yaml
+    with:
+      directory: ${{inputs.parent}}/${{ matrix.subdir }}
   build:
-    runs-on: ubuntu-latest
     if: ${{ inputs.build }} == true
-    needs: [find-subdirs, test-lint-type]
+    needs: [find-subdirs, test, lint, type]
     strategy:
       matrix:
         subdir: ${{ fromJson(needs.find-subdirs.outputs.folders) }}
-    defaults:
-      run:
-        working-directory: ${{inputs.parent}}/${{ matrix.subdir }}
-    steps:
-      - uses: actions/checkout@v4
-      - run: |
-          echo 'from build ${{inputs.parent}}/${{matrix.subdir}}'
-      - name: Build and Push
-        uses: ./.github/workflows/docker-push.yaml
-        with:
-          directory: ${{inputs.parent}}/${{ matrix.subdir }}
+    uses: ./.github/workflows/docker-push.yaml
+    with:
+      directory: ${{inputs.parent}}/${{ matrix.subdir }}
 
