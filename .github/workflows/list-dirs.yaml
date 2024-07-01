@@ -6,7 +6,8 @@ on:
         required: true
         type: string
     outputs:
-      folders: ${{ steps.set-folders.outputs.folders }}
+      folders: 
+        value: ${{ steps.set-folders.outputs.folders }}
 
 permissions:
   contents: read
