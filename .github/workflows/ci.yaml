@@ -4,6 +4,10 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      build:
+        default: true
+        type: boolean
   
 jobs:
   test-lint-check-build:
@@ -14,5 +18,5 @@ jobs:
     uses: ./.github/workflows/build-test-subdirs.yaml
     with:
       parent: ${{ matrix.parent }}
-      build: ${{ github.event.pull_request.closed }}
+      build: ${{ inputs.build }}
     
