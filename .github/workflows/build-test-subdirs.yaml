@@ -57,6 +57,8 @@ jobs:
         working-directory: ${{inputs.parent}}/${{ matrix.subdir }}
     steps:
       - uses: actions/checkout@v4
+      - run: |
+        echo '${{inputs.parent}}/${{matrix.subdir}}'
       - name: Build and Push
         uses: ./.github/workflows/docker-push.yaml
         with:
