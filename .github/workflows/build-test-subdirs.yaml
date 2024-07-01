@@ -24,7 +24,7 @@ jobs:
     needs: [find-subdirs]
     strategy:
       matrix:
-        subdir: ${{ fromJson(needs.find-subdirs.outputs.folders) }}
+        subdir: ${{needs.find-subdirs.outputs.folders}}
     uses: ./.github/workflows/python-linting.yaml
     with:
       directory: ${{inputs.parent}}/${{ matrix.subdir }}
