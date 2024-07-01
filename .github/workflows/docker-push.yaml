@@ -53,7 +53,7 @@ jobs:
         run: echo CURRENT_SHA=$(git rev-parse HEAD) >> $GITHUB_OUTPUT
 
       - run: |
-          echo ${{ inputs.directory }}
+          echo $(ls ${{ inputs.directory }})
       - uses: docker/build-push-action@v6
         with:
           # Override default Git Context from the event that triggered this workflow
