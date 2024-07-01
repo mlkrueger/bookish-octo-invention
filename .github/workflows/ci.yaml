@@ -14,5 +14,5 @@ jobs:
     uses: ./.github/workflows/build-test-subdirs.yaml
     with:
       parent: ${{ matrix.parent }}
-      build: github.event.pull_request.closed == true
+      build: github.event.pull_request.closed
     
