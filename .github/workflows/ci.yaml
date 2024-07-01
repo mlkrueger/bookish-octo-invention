@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          echo ${{ matrix.parent }}
+          echo $(ls ./.github/workflows)
       - uses: ./.github/workflows/build-test-subdirs.yaml
         with:
           parent: ${{ matrix.parent }}
