@@ -25,6 +25,8 @@ jobs:
       uses: ./.github/workflows/list-dirs.yaml
       with: 
         parent: ${{ inputs.parent }}
+    - run: |
+        echo ${{steps.id.output.folders}}
   # test, lint, and type check every package/app under parent
   test-lint-type:
     name: "Python: Test, Lint, and Type Check"
