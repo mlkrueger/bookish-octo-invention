@@ -5,9 +5,9 @@ on:
       parent:
         required: true
         type: string
-      build:
+      env:
         required: true
-        type: boolean
+        type: string
 
 
 # Given a set of parents
