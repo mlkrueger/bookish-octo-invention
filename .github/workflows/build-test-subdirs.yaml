@@ -47,7 +47,6 @@ jobs:
     with:
       directory: ${{inputs.parent}}/${{ matrix.subdir }}
   build:
-    if: ${{ inputs.build }} == true
     needs: [find-subdirs, test, lint, type]
     strategy:
       matrix:
